@@ -111,42 +111,6 @@ const AccDocument = (): JSX.Element => {
     lastName: '',
   }
 
-  const firstSectionRef = useRef<any>()
-  const commentRef = useRef<any>()
-  const documentRef = useRef<any>()
-
-  const getDateV1 = (date: any, time?: boolean) => {
-    const dateObj = new Date(date)
-    const month = dateObj.getUTCMonth() + 1 //months from 1-12
-    const day = dateObj.getUTCDate()
-    const year = dateObj.getUTCFullYear()
-    if (time) {
-      const hour = date.split(':')[0]
-      const minute = date.split(':')[1]
-
-      return `${hour}:${minute}`
-    }
-    return day + ' ' + monthToWord(month) + ' ' + year
-  }
-
-  const getDateV2 = (date: any, time?: boolean) => {
-    const dateObj = new Date(date)
-    const day = dateObj.getUTCDate()
-    const year = dateObj.getUTCFullYear()
-    if (time) {
-      const hour = date.split(':')[0]
-      const minute = date.split(':')[1]
-
-      return `${hour}:${minute}`
-    }
-
-    const month = dateObj.toLocaleDateString(undefined, {
-      month: 'short',
-    })
-
-    return day + ' ' + month + ' ' + year
-  }
-
   const [actDetail, setActDetail] = useState<any>({
     samplingDate: '',
     samplingTime: '',
@@ -158,19 +122,6 @@ const AccDocument = (): JSX.Element => {
     qualityDocument: '',
     id: null,
     environmental: '',
-  })
-  const [haveAct, setHaveAct] = useState(false)
-
-  const isCompany = dataUser?.role?.includes('company')
-
-  const [alertGoToAddObject, setAlertGoToAddObject] = useState<any>(null)
-
-  const [buttonStyle, setButtonStyle] = useState<any>({
-    width: '180px',
-    marginTop: '20px',
-    backgroundColor: '#F1F4F7',
-    color: '#414141',
-    marginBottom: '20px',
   })
 
   const getData = useCallback(
@@ -232,66 +183,7 @@ const AccDocument = (): JSX.Element => {
     }
   }, [])
 
-  const user = data?.user
-  const userResponsible = data?.responsibleUser
-  const actNumber = data?.id
-
-  function DateShow({ date, onDateChange }: any) {
-    return (
-      <CDatePicker
-        placeholder={'Выберите дату'}
-        style={{
-          width: '60%',
-        }}
-        locale="ru-RU"
-        onDateChange={(e: any) => {
-          onDateChange(e)
-        }}
-        date={date}
-        weekdayFormat={1}
-      />
-    )
-  }
-
   console.log(data, '<<<<<======= INI ADALAH DATA')
-
-  const contentModal = (
-    <>
-      <div
-        style={{
-          marginTop: '2%',
-        }}
-      >
-        <CFormInput
-          type="text"
-          placeholder={'Введите название документа' as any}
-          value={formUpload.name}
-          onChange={(e: any) => {
-            setFormUpload((prev) => ({
-              ...prev,
-              name: e.target.value,
-            }))
-          }}
-        />
-      </div>
-      <div
-        style={{
-          marginTop: '1.5rem',
-        }}
-      >
-        <CFormInput
-          onChange={(e: any) =>
-            setFormUpload((prev) => ({
-              ...prev,
-              name: e.target?.files[0]?.name?.split('.').slice(0, -1).join('.'),
-              file: e.target?.files?.item(0),
-            }))
-          }
-          type="file"
-        />
-      </div>
-    </>
-  )
 
   const handleSaveAsPDF = () => {
     const title = `Сопроводительные документы к заявке №${data?.id}`

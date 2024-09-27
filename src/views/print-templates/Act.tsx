@@ -236,62 +236,7 @@ const ActPrint = (): JSX.Element => {
   const userResponsible = data?.responsibleUser
   const actNumber = data?.id
 
-  function DateShow({ date, onDateChange }: any) {
-    return (
-      <CDatePicker
-        placeholder={'Выберите дату'}
-        style={{
-          width: '60%',
-        }}
-        locale="ru-RU"
-        onDateChange={(e: any) => {
-          onDateChange(e)
-        }}
-        date={date}
-        weekdayFormat={1}
-      />
-    )
-  }
-
   console.log(data, '<<<<<======= INI ADALAH DATA')
-
-  const contentModal = (
-    <>
-      <div
-        style={{
-          marginTop: '2%',
-        }}
-      >
-        <CFormInput
-          type="text"
-          placeholder={'Введите название документа' as any}
-          value={formUpload.name}
-          onChange={(e: any) => {
-            setFormUpload((prev) => ({
-              ...prev,
-              name: e.target.value,
-            }))
-          }}
-        />
-      </div>
-      <div
-        style={{
-          marginTop: '1.5rem',
-        }}
-      >
-        <CFormInput
-          onChange={(e: any) =>
-            setFormUpload((prev) => ({
-              ...prev,
-              name: e.target?.files[0]?.name?.split('.').slice(0, -1).join('.'),
-              file: e.target?.files?.item(0),
-            }))
-          }
-          type="file"
-        />
-      </div>
-    </>
-  )
 
   const handleSaveAsPDF = () => {
     const title = `Акт отбора проб № ${actDetail?.id}}`
